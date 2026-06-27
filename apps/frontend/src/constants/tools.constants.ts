@@ -25,31 +25,3 @@ export const TOOL_CATEGORIES = {
 } as const
 
 export type ToolCategorySlug = (typeof TOOL_CATEGORIES)[keyof typeof TOOL_CATEGORIES]
-
-/** File upload limits */
-export const UPLOAD_LIMITS = {
-  MAX_SIZE_MB: 50,
-  MAX_SIZE_BYTES: 50 * 1024 * 1024,
-  MAX_FILES: 10,
-} as const
-
-/** Accepted MIME types by category */
-export const ACCEPTED_TYPES = {
-  IMAGE: ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
-  PDF: ['application/pdf'],
-  DOCUMENT: [
-    'application/msword',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    'application/vnd.ms-excel',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'text/plain',
-    'text/csv',
-  ],
-} as const
-
-/** Default pagination settings */
-export const PAGINATION = {
-  DEFAULT_PAGE: 1,
-  DEFAULT_LIMIT: 12,
-  MAX_LIMIT: 100,
-} as const

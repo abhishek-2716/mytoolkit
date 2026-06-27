@@ -48,3 +48,11 @@ export function isFileSizeValid(bytes: number, maxMb: number): boolean {
 export function isMimeTypeAllowed(mimeType: string, allowed: readonly string[]): boolean {
   return allowed.includes(mimeType)
 }
+
+// ── Re-exports from sub-modules ────────────────────────────────────────────
+export { copyToClipboard } from './copy-to-clipboard'
+export { downloadBlob, downloadFile } from './download-file'
+export { formatDate, formatDateShort, formatRelativeDate } from './format-date'
+export type { LogEntry, LogLevel } from './logger'
+export { logger } from './logger'
+export { throttle } from './throttle'
