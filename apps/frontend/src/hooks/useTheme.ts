@@ -1,26 +1,84 @@
-import { useEffect } from 'react'
+import type { ResolvedTheme, ThemeValue } from '@/config'
 
 import { useThemeStore } from '@/store'
 
-/** Access and control the application theme */
-export function useTheme() {
+export interface UseThemeReturn {
+  /**
+   * The user's stored preference.
+   * 'light' | 'dark' | 'system'
+   */
+  theme: ThemeValue
+
+  /**
+   * The concrete theme currently applied to the DOM.
+   * Always 'light' or 'dark' — never 'system'.
+   */
+  resolvedTheme: ResolvedTheme
+
+  /** Change the user's theme preference and immediately apply it. */
+  setTheme: (theme: ThemeValue) => void
+
+  /**
+   * Toggle between light and dark.
+   * Ignores the 'system' preference and sets an explicit value.
+   * Useful for simple toggle buttons in the header.
+   */
+  toggle: () => void
+
+  /**
+   * Cycle through all three options: light → dark → system → light.
+   * Useful for a single-button cycle control.
+   */
+  cycle: () => void
+
+  /** True when the active (resolved) theme is dark. */
+  isDark: boolean
+
+  /** True when the active (resolved) theme is light. */
+  isLight: boolean
+
+  /** True when the user's preference is set to follow the OS. */
+  isSystem: boolean
+}
+
+/**
+ * useTheme — primary hook for reading and changing the application theme.
+ *
+ * All components that need theme information should use this hook.
+ * Never read from localStorage directly, check data-theme, or use
+ * window.matchMedia in components — use this hook instead.
+ *
+ * @example
+ * const { isDark, toggle } = useTheme()
+ * <button onClick={toggle}>{isDark ? 'Light mode' : 'Dark mode'}</button>
+ *
+ * @example
+ * const { theme, setTheme } = useTheme()
+ * <ThemeSwitcher value={theme} onChange={setTheme} />
+ */
+export function useTheme(): UseThemeReturn {
   const { theme, resolvedTheme, setTheme } = useThemeStore()
 
-  // Listen for OS-level theme changes when user prefers "system"
-  useEffect(() => {
-    if (theme !== 'system') return
+  return {
+    theme,
+    resolvedTheme,
+    setTheme,
 
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleChange = () => {
-      const resolved = mediaQuery.matches ? 'dark' : 'light'
-      document.documentElement.setAttribute('data-theme', resolved)
-    }
+    toggle: () => {
+      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+    },
 
-    mediaQuery.addEventListener('change', handleChange)
-    return () => {
-      mediaQuery.removeEventListener('change', handleChange)
-    }
-  }, [theme])
+    cycle: () => {
+      const next: Record<ThemeValue, ThemeValue> = {
+        light: 'dark',
+        dark: 'system',
+        system: 'light',
+      }
+      setTheme(next[theme])
+    },
 
-  return { theme, resolvedTheme, setTheme, isDark: resolvedTheme === 'dark' }
+    isDark: resolvedTheme === 'dark',
+    isLight: resolvedTheme === 'light',
+    isSystem: theme === 'system',
+  }
 }

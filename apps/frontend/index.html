@@ -2,10 +2,58 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
+    <!--
+      NO-FLASH THEME SCRIPT
+      ─────────────────────────────────────────────────────────────────────
+      This synchronous inline script runs before any CSS or body renders.
+      It reads the persisted theme from localStorage and immediately sets
+      data-theme on <html> — eliminating the Flash of Incorrect Theme
+      (FOIT / FART) that would otherwise occur on first paint.
+
+      Storage format (Zustand persist middleware):
+        key:   "toolnest-theme"
+        value: '{"state":{"theme":"dark"},"version":0}'
+
+      Fallback chain:
+        1. Stored preference ('light' | 'dark')
+        2. Stored 'system' + OS prefers-color-scheme detection
+        3. No storage / invalid JSON → OS detection → 'light'
+    -->
+    <script>
+      (function () {
+        try {
+          var STORAGE_KEY = 'toolnest-theme'
+          var ATTR = 'data-theme'
+          var stored = localStorage.getItem(STORAGE_KEY)
+          var parsed = stored ? JSON.parse(stored) : null
+          var theme = parsed && parsed.state ? parsed.state.theme : null
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          var resolved =
+            theme === 'light'
+              ? 'light'
+              : theme === 'dark'
+                ? 'dark'
+                : prefersDark
+                  ? 'dark'
+                  : 'light'
+          document.documentElement.setAttribute(ATTR, resolved)
+        } catch (e) {
+          /* localStorage unavailable (private browsing, etc.) — OS detection below */
+          try {
+            var fallback = window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light'
+            document.documentElement.setAttribute('data-theme', fallback)
+          } catch (_) {}
+        }
+      })()
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <!-- Browser chrome color — updated by ThemeProvider at runtime -->
+    <meta name="theme-color" content="#ffffff" />
     <title>ToolNest — Free Online Productivity Tools</title>
     <meta
       name="description"
