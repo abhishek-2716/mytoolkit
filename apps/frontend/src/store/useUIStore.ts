@@ -13,8 +13,16 @@ export const useUIStore = create<UIState>()((set) => ({
   isMobileMenuOpen: false,
   isSearchModalOpen: false,
 
-  setMobileMenuOpen: (open) => set({ isMobileMenuOpen: open }),
-  setSearchModalOpen: (open) => set({ isSearchModalOpen: open }),
-  toggleMobileMenu: () => set((s) => ({ isMobileMenuOpen: !s.isMobileMenuOpen })),
-  toggleSearchModal: () => set((s) => ({ isSearchModalOpen: !s.isSearchModalOpen })),
+  setMobileMenuOpen: (open) => {
+    set({ isMobileMenuOpen: open })
+  },
+  setSearchModalOpen: (open) => {
+    set({ isSearchModalOpen: open })
+  },
+  toggleMobileMenu: () => {
+    set((s) => ({ isMobileMenuOpen: !s.isMobileMenuOpen }))
+  },
+  toggleSearchModal: () => {
+    set((s) => ({ isSearchModalOpen: !s.isSearchModalOpen }))
+  },
 }))

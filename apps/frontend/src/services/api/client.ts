@@ -1,5 +1,7 @@
 import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig } from 'axios'
+
 import { apiConfig } from '@/config'
+
 import type { ApiResponse } from '@/types'
 
 class ApiClient {
@@ -43,8 +45,7 @@ class ApiClient {
   }
 
   private normalizeError(error: AxiosError<ApiResponse>): Error {
-    const message =
-      error.response?.data?.message ?? error.message ?? 'An unexpected error occurred.'
+    const message = error.response?.data.message ?? error.message
     return new Error(message)
   }
 

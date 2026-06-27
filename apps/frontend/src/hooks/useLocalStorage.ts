@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 /** Persist and sync state with localStorage */
 export function useLocalStorage<T>(key: string, initialValue: T) {

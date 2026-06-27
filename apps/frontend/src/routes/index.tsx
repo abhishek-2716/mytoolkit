@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+
 import { PublicLayout } from '@/layouts'
 
 // ── Lazy-loaded pages for code splitting ──────────────────────

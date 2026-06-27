@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 /** Reactively track a CSS media query */
 export function useMediaQuery(query: string): boolean {
@@ -10,9 +10,13 @@ export function useMediaQuery(query: string): boolean {
   useEffect(() => {
     const mq = window.matchMedia(query)
     setMatches(mq.matches)
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches)
+    const handler = (e: MediaQueryListEvent) => {
+      setMatches(e.matches)
+    }
     mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
+    return () => {
+      mq.removeEventListener('change', handler)
+    }
   }, [query])
 
   return matches

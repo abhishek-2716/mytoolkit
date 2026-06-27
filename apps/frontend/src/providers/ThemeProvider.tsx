@@ -1,4 +1,5 @@
-import { useEffect, type ReactNode } from 'react'
+import { type ReactNode, useEffect } from 'react'
+
 import { useThemeStore } from '@/store'
 
 interface ThemeProviderProps {
@@ -25,7 +26,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       document.documentElement.setAttribute('data-theme', mq.matches ? 'dark' : 'light')
     }
     mq.addEventListener('change', handleChange)
-    return () => mq.removeEventListener('change', handleChange)
+    return () => {
+      mq.removeEventListener('change', handleChange)
+    }
   }, [theme])
 
   return <>{children}</>

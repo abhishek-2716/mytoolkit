@@ -2,6 +2,7 @@
   "name": "toolnest",
   "private": true,
   "version": "0.1.0",
+  "type": "module",
   "description": "ToolNest — Modern Online Productivity Platform",
   "scripts": {
     "dev": "pnpm --filter @toolnest/frontend dev",

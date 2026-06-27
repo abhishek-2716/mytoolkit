@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+
 import { QueryProvider } from './QueryProvider'
 import { ThemeProvider } from './ThemeProvider'
 

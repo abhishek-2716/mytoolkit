@@ -2,7 +2,9 @@
 
 > **Free Online Productivity Tools — Fast, Secure, Modern**
 
-ToolNest is a scalable, SEO-friendly online utility platform that provides free productivity tools for everyone. From PDF conversion and image compression to developer utilities and calculators — all in one place, no sign-up required.
+ToolNest is a scalable, SEO-friendly online utility platform that provides free productivity tools
+for everyone. From PDF conversion and image compression to developer utilities and calculators — all
+in one place, no sign-up required.
 
 ---
 
@@ -117,6 +119,126 @@ See [docs/deployment/environment-variables.md](docs/deployment/README.md) for fu
 
 ---
 
+## Code Quality & Git Hooks
+
+### How Git Hooks Work
+
+Husky installs two Git hooks automatically when you run `pnpm install`:
+
+| Hook         | Trigger       | What it does                                           |
+| ------------ | ------------- | ------------------------------------------------------ |
+| `pre-commit` | Before commit | Runs `lint-staged` — formats staged files, checks lint |
+| `commit-msg` | After message | Validates message follows Conventional Commits format  |
+
+### Commit Message Convention
+
+This project enforces [Conventional Commits](https://www.conventionalcommits.org/).
+
+**Format:** `<type>(<scope>): <description>`
+
+| Type       | When to use                       |
+| ---------- | --------------------------------- |
+| `feat`     | New feature                       |
+| `fix`      | Bug fix                           |
+| `refactor` | Code change, not a feature or fix |
+| `docs`     | Documentation only                |
+| `style`    | Formatting, whitespace            |
+| `test`     | Adding or updating tests          |
+| `build`    | Build system or dependencies      |
+| `ci`       | CI/CD configuration               |
+| `perf`     | Performance improvement           |
+| `chore`    | Maintenance tasks                 |
+| `revert`   | Revert a previous commit          |
+
+**Valid examples:**
+
+```
+feat(upload): add drag-and-drop upload component
+fix(search): resolve mobile keyboard overflow
+docs(readme): update installation guide
+refactor(api): simplify axios error handling
+```
+
+**Invalid examples (rejected by commitlint):**
+
+```
+Update stuff           ← no type
+FEAT: add upload       ← uppercase type
+feat: Add Upload.      ← uppercase subject, trailing period
+```
+
+### Running Linting Manually
+
+```bash
+# Lint all packages
+pnpm lint
+
+# Lint and auto-fix
+pnpm lint:fix
+
+# Lint only the frontend
+pnpm --filter @toolnest/frontend lint
+```
+
+### Running Formatting Manually
+
+```bash
+# Format everything
+pnpm format
+
+# Check formatting without writing
+pnpm format:check
+
+# Format only frontend source
+pnpm --filter @toolnest/frontend format
+```
+
+### Running Type Checks Manually
+
+```bash
+# Type-check all packages
+pnpm typecheck
+
+# Type-check only the frontend
+pnpm --filter @toolnest/frontend typecheck
+```
+
+### Full Validation (CI equivalent)
+
+```bash
+pnpm validate
+```
+
+Runs: `format:check` → `typecheck` → `lint`
+
+### Import Ordering
+
+Imports are automatically sorted on commit using `eslint-plugin-simple-import-sort`.
+
+The enforced order:
+
+1. External packages (`react`, `axios`, etc.)
+2. Internal monorepo packages (`@toolnest/*`)
+3. Components, features, layouts, pages (`@/components/*`, etc.)
+4. Hooks (`@/hooks/*`)
+5. Services & providers (`@/services/*`, `@/providers/*`)
+6. Utilities, config, constants
+7. Types (`@/types/*`)
+8. Store (`@/store/*`)
+9. Styles & assets
+10. Relative imports (`./`, `../`)
+
+### Bypassing Hooks (Emergency Only)
+
+```bash
+# Skip pre-commit hook (use ONLY in genuine emergencies)
+git commit --no-verify -m "chore: emergency fix"
+```
+
+**Never use `--no-verify` routinely.** If hooks fail, fix the issue instead.
+
+---
+
 ## Project Roadmap
 
 | Phase | Focus                     | Status         |
@@ -131,7 +253,8 @@ See [docs/deployment/environment-variables.md](docs/deployment/README.md) for fu
 
 ## Contributing
 
-We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) before submitting a pull request.
+We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) before submitting a
+pull request.
 
 ---
 

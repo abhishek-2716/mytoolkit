@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import { useThemeStore } from '@/store'
 
 /** Access and control the application theme */
@@ -16,7 +17,9 @@ export function useTheme() {
     }
 
     mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange)
+    }
   }, [theme])
 
   return { theme, resolvedTheme, setTheme, isDark: resolvedTheme === 'dark' }

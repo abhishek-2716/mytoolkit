@@ -1,4 +1,5 @@
 import { Toaster } from 'react-hot-toast'
+
 import { AppProviders } from './providers'
 import { AppRouter } from './routes'
 
