@@ -1,0 +1,22 @@
+# CODEOWNERS
+# Defines who must review PRs for specific paths.
+# Replace with actual GitHub usernames before going public.
+
+# Global default
+* @toolnest/core-team
+
+# Frontend
+apps/frontend/** @toolnest/frontend-team
+
+# Backend
+apps/backend/** @toolnest/backend-team
+
+# Admin
+apps/admin/** @toolnest/frontend-team @toolnest/backend-team
+
+# Shared packages
+packages/** @toolnest/core-team
+
+# Infrastructure & deployment
+deployment/** @toolnest/devops-team
+.github/** @toolnest/core-team
