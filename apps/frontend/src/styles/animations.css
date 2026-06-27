@@ -1,0 +1,227 @@
+/**
+ * ToolNest Animation Library
+ * ══════════════════════════════════════════════════════════════════════════
+ *
+ * Keyframe definitions for all UI micro-interactions.
+ * Animation utilities are registered in tokens.css via --animate-* tokens,
+ * which Tailwind exposes as animate-* utility classes.
+ *
+ * MOTION PHILOSOPHY
+ * ──────────────────
+ *  • Enter animations use ease-out (quick start, gentle finish)
+ *  • Exit animations use ease-in (slow start, quick exit)
+ *  • Springy effects (scale-in, bounce-in) use ease-spring
+ *  • Looping animations (spin, pulse, shimmer) are infinite
+ *  • All durations reference --duration-* tokens
+ *
+ * USAGE
+ * ──────
+ *   <div className="animate-fade-in">...</div>
+ *   <div className="animate-slide-up">...</div>
+ *
+ *   With Framer Motion (preferred for complex sequences):
+ *   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
+ *
+ * REDUCED MOTION
+ * ──────────────
+ *   The globals.css @layer base applies a prefers-reduced-motion reset
+ *   that collapses all animation durations to 0.01ms.
+ *
+ * ══════════════════════════════════════════════════════════════════════════
+ */
+
+/* ── Visibility ─────────────────────────────────────────────────────────── */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* ── Directional Slides ─────────────────────────────────────────────────── */
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Scale ──────────────────────────────────────────────────────────────── */
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  80% {
+    transform: scale(0.97);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ── Looping ────────────────────────────────────────────────────────────── */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Content Reveal ─────────────────────────────────────────────────────── */
+
+/* Used by accordion, collapsible panels */
+@keyframes accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height, auto);
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height, auto);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+/* ── Shimmer Loading Skeleton ────────────────────────────────────────────── */
+
+@layer utilities {
+  /**
+   * Skeleton loading placeholder.
+   * Usage: <div className="skeleton w-full h-4 rounded-md" />
+   */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-muted);
+    border-radius: var(--radius-md);
+  }
+
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in oklch, var(--color-background) 60%, transparent) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+  }
+}

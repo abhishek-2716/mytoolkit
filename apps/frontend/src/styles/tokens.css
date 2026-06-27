@@ -1,0 +1,501 @@
+/**
+ * ToolNest Design Tokens
+ * ══════════════════════════════════════════════════════════════════════════
+ *
+ * Single source of truth for all visual design values.
+ *
+ * ARCHITECTURE
+ * ─────────────
+ *  @theme {}           → Default (light) values; Tailwind generates utilities
+ *                        from these automatically using the naming convention:
+ *                        --color-*   → bg-*, text-*, border-*, ring-*, etc.
+ *                        --radius-*  → rounded-*
+ *                        --shadow-*  → shadow-*
+ *                        --text-*    → text-* (font-size + companion line-height)
+ *                        --font-*    → font-family utilities
+ *                        --animate-* → animate-* (references @keyframes by name)
+ *                        --z-*       → z-*
+ *
+ *  [data-theme='dark'] → Explicit dark mode CSS variable overrides
+ *
+ *  @media dark pref.   → System dark mode fallback (no explicit preference set)
+ *
+ * USAGE IN COMPONENTS
+ * ────────────────────
+ *  Prefer Tailwind utility classes: bg-primary, text-foreground, shadow-md
+ *  Use var() for non-utility tokens:  font-size: var(--text-display-xl)
+ *  Never hardcode values like #3b82f6 or 16px in component files.
+ *
+ * ══════════════════════════════════════════════════════════════════════════
+ */
+
+/* ──────────────────────────────────────────────────────────────────────────
+   DEFAULT (LIGHT) THEME
+   All values here are the authoritative design decisions for ToolNest.
+   ────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* ────────────────────────────────────────────────
+     FONT FAMILIES
+     Usage: font-sans, font-mono, font-display
+     ──────────────────────────────────────────────── */
+
+  --font-sans:
+    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:
+    'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, 'Courier New', monospace;
+  --font-display: 'Inter', system-ui, sans-serif;
+
+  /* ────────────────────────────────────────────────
+     TYPOGRAPHY SCALE
+     --text-* generates text-* Tailwind utilities (font-size only).
+     Companion --text-*--line-height sets the paired line-height.
+     Full composite styles live in typography.css as .type-* utilities.
+
+     Scale intent:
+       display-xl → Hero headlines (e.g. homepage H1)
+       display-lg → Section heroes, feature headings
+       h1–h6      → Document heading hierarchy
+       body-*     → Prose, UI copy
+       caption    → Timestamps, hints, helper text
+       label      → Form field labels, table headers
+       button     → All interactive control labels
+       code       → Monospace inline/block text
+     ──────────────────────────────────────────────── */
+
+  --text-display-xl: 4.5rem;
+  --text-display-xl--line-height: 1.05;
+
+  --text-display-lg: 3.75rem;
+  --text-display-lg--line-height: 1.08;
+
+  --text-h1: 2.5rem;
+  --text-h1--line-height: 1.2;
+
+  --text-h2: 2rem;
+  --text-h2--line-height: 1.25;
+
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.3;
+
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.4;
+
+  --text-h5: 1.125rem;
+  --text-h5--line-height: 1.4;
+
+  --text-h6: 1rem;
+  --text-h6--line-height: 1.5;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.7;
+
+  --text-body-md: 1rem;
+  --text-body-md--line-height: 1.65;
+
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.6;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.5;
+
+  --text-label: 0.875rem;
+  --text-label--line-height: 1.4;
+
+  --text-button: 0.875rem;
+  --text-button--line-height: 1;
+
+  --text-code: 0.875rem;
+  --text-code--line-height: 1.6;
+
+  /* ────────────────────────────────────────────────
+     COLORS — LIGHT THEME
+     Perceptual uniformity via the OKLCH color space.
+     Every semantic token maps to a precise OKLCH value.
+
+     Layers:
+       Background → Base canvas
+       Surface    → Cards, panels, dialogs
+       Border     → Dividers, inputs, outlines
+       Foreground → Text and icon content
+       Semantic   → Primary, Accent, Status colors
+     ──────────────────────────────────────────────── */
+
+  /* Background layers */
+  --color-background: oklch(100% 0 0);
+  --color-background-subtle: oklch(98.5% 0.002 247.9);
+  --color-background-muted: oklch(96.5% 0.004 247.9);
+
+  /* Surface layers — for cards, panels, modals, tooltips */
+  --color-surface: oklch(99% 0.001 247.9);
+  --color-surface-raised: oklch(100% 0 0);
+  --color-surface-overlay: oklch(100% 0 0);
+  --color-surface-sunken: oklch(97% 0.004 247.9);
+
+  /* Borders — from subtle dividers to strong outlines */
+  --color-border: oklch(89.8% 0.006 247.9);
+  --color-border-strong: oklch(78% 0.01 247.9);
+  --color-border-subtle: oklch(94% 0.004 247.9);
+
+  /* Foreground / Text hierarchy */
+  --color-foreground: oklch(14.5% 0.013 247.9); /* Primary text */
+  --color-foreground-secondary: oklch(35% 0.013 247.9); /* Secondary text */
+  --color-foreground-muted: oklch(55.6% 0.013 247.9); /* Hints, placeholders */
+  --color-foreground-disabled: oklch(72% 0.009 247.9); /* Disabled state text */
+  --color-foreground-on-dark: oklch(98.5% 0.002 247.9); /* Text on dark surfaces */
+
+  /* Muted surfaces — backgrounds for chips, code blocks, etc. */
+  --color-muted: oklch(96.1% 0.008 247.9);
+  --color-muted-foreground: oklch(55.6% 0.013 247.9);
+
+  /* ── PRIMARY — Blue ──────────────────────────────
+     Full 11-step scale for flexible usage.
+     DEFAULT = 500, interactive states at 600/700.
+     ─────────────────────────────────────────────── */
+  --color-primary-50: oklch(97% 0.025 255);
+  --color-primary-100: oklch(93% 0.06 255);
+  --color-primary-200: oklch(87% 0.11 255);
+  --color-primary-300: oklch(79% 0.17 255);
+  --color-primary-400: oklch(70% 0.22 255);
+  --color-primary-500: oklch(59.2% 0.249 255.1);
+  --color-primary-600: oklch(53.5% 0.249 255.1);
+  --color-primary-700: oklch(46% 0.22 255);
+  --color-primary-800: oklch(38% 0.18 255);
+  --color-primary-900: oklch(30% 0.14 255);
+  --color-primary-950: oklch(20% 0.1 255);
+
+  --color-primary: var(--color-primary-500);
+  --color-primary-hover: var(--color-primary-600);
+  --color-primary-active: var(--color-primary-700);
+  --color-primary-subtle: var(--color-primary-50);
+  --color-primary-light: var(--color-primary-100);
+  --color-primary-foreground: oklch(100% 0 0);
+
+  /* ── SECONDARY — Neutral ─────────────────────────
+     Subtle backgrounds for secondary actions.
+     ─────────────────────────────────────────────── */
+  --color-secondary: oklch(96.1% 0.008 247.9);
+  --color-secondary-hover: oklch(92% 0.01 247.9);
+  --color-secondary-active: oklch(88% 0.012 247.9);
+  --color-secondary-foreground: oklch(20.5% 0.011 247.9);
+
+  /* ── ACCENT — Violet ─────────────────────────────
+     Complementary hue for highlights, tags, badges.
+     ─────────────────────────────────────────────── */
+  --color-accent-50: oklch(97% 0.02 290);
+  --color-accent-100: oklch(93% 0.06 290);
+  --color-accent-200: oklch(86% 0.12 290);
+  --color-accent-300: oklch(78% 0.18 290);
+  --color-accent-400: oklch(69% 0.24 290);
+  --color-accent-500: oklch(60% 0.27 290);
+  --color-accent-600: oklch(53% 0.27 290);
+  --color-accent-700: oklch(45% 0.24 290);
+
+  --color-accent: var(--color-accent-500);
+  --color-accent-hover: var(--color-accent-600);
+  --color-accent-light: var(--color-accent-100);
+  --color-accent-foreground: oklch(100% 0 0);
+
+  /* ── SUCCESS — Green ────────────────────────────── */
+  --color-success-50: oklch(97% 0.025 155);
+  --color-success-100: oklch(92% 0.07 155);
+  --color-success-200: oklch(85% 0.12 155);
+  --color-success-500: oklch(64.8% 0.175 154.5);
+  --color-success-600: oklch(57% 0.175 154.5);
+  --color-success-700: oklch(48% 0.155 154.5);
+
+  --color-success: var(--color-success-500);
+  --color-success-hover: var(--color-success-600);
+  --color-success-light: var(--color-success-100);
+  --color-success-foreground: oklch(100% 0 0);
+
+  /* ── WARNING — Amber ────────────────────────────── */
+  --color-warning-50: oklch(98% 0.03 80);
+  --color-warning-100: oklch(94% 0.09 80);
+  --color-warning-200: oklch(88% 0.15 80);
+  --color-warning-500: oklch(76.9% 0.188 70.1);
+  --color-warning-600: oklch(68% 0.188 70.1);
+  --color-warning-700: oklch(56% 0.17 70.1);
+
+  --color-warning: var(--color-warning-500);
+  --color-warning-hover: var(--color-warning-600);
+  --color-warning-light: var(--color-warning-100);
+  --color-warning-foreground: oklch(20.5% 0.011 247.9);
+
+  /* ── DANGER / ERROR — Red ───────────────────────── */
+  --color-danger-50: oklch(97.5% 0.015 25);
+  --color-danger-100: oklch(93% 0.055 25);
+  --color-danger-200: oklch(86% 0.1 25);
+  --color-danger-500: oklch(63.7% 0.237 25.3);
+  --color-danger-600: oklch(56% 0.237 25.3);
+  --color-danger-700: oklch(47% 0.21 25.3);
+
+  --color-danger: var(--color-danger-500);
+  --color-danger-hover: var(--color-danger-600);
+  --color-danger-light: var(--color-danger-100);
+  --color-danger-foreground: oklch(100% 0 0);
+
+  /* ── INFO — Sky Blue ────────────────────────────── */
+  --color-info-50: oklch(97% 0.025 215);
+  --color-info-100: oklch(93% 0.07 215);
+  --color-info-200: oklch(86% 0.13 215);
+  --color-info-500: oklch(62.3% 0.214 254.1);
+  --color-info-600: oklch(55% 0.214 254.1);
+
+  --color-info: var(--color-info-500);
+  --color-info-hover: var(--color-info-600);
+  --color-info-light: var(--color-info-100);
+  --color-info-foreground: oklch(100% 0 0);
+
+  /* ── Overlays / Scrims ──────────────────────────── */
+  --color-overlay: oklch(0% 0 0 / 0.5); /* Standard modal backdrop */
+  --color-overlay-subtle: oklch(0% 0 0 / 0.15); /* Drawer, hover states */
+  --color-overlay-strong: oklch(0% 0 0 / 0.8); /* Full-screen locks */
+
+  /* ── Focus ring ─────────────────────────────────── */
+  --color-focus-ring: var(--color-primary);
+
+  /* ────────────────────────────────────────────────
+     BORDER RADIUS
+     Usage: rounded-sm, rounded-md, rounded-full, etc.
+
+     none  → Tables, sharp technical elements
+     sm    → Badges, chips, tight elements
+     md    → Buttons, inputs, small cards
+     lg    → Popovers, menus, large cards
+     xl    → Hero panels, feature sections
+     2xl   → Featured card spotlights
+     3xl   → Decorative/organic shapes
+     full  → Avatars, toggle pills, circular icons
+     ──────────────────────────────────────────────── */
+
+  --radius-none: 0px;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-full: 9999px;
+
+  /* ────────────────────────────────────────────────
+     SHADOW SCALE
+     Usage: shadow-xs, shadow-sm, shadow-md, …
+
+     Subtle shadows — professional, not overdone.
+     Elevation increases with shadow scale.
+     Dark mode overrides are in the [data-theme='dark'] block.
+
+     xs    → Subtle raised state (hover on flat elements)
+     sm    → Inputs, small cards
+     md    → Dropdown menus, tooltips
+     lg    → Modals, drawers, floating panels
+     xl    → Full-page overlays, hero elements
+     2xl   → Dramatic large floating containers
+     inner → Inset depth (active states, wells)
+     focus → Keyboard focus ring glow
+     ──────────────────────────────────────────────── */
+
+  --shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.08), 0 1px 2px oklch(0% 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.08), 0 2px 4px -2px oklch(0% 0 0 / 0.06);
+  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.08), 0 4px 6px -4px oklch(0% 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 0.08), 0 8px 10px -6px oklch(0% 0 0 / 0.04);
+  --shadow-2xl: 0 25px 50px -12px oklch(0% 0 0 / 0.12);
+  --shadow-inner: inset 0 2px 4px oklch(0% 0 0 / 0.05);
+  --shadow-focus: 0 0 0 3px color-mix(in oklch, var(--color-primary) 30%, transparent);
+  --shadow-none: none;
+
+  /* ────────────────────────────────────────────────
+     ANIMATION
+     Timing: prefer fast/normal for UI; slow for complex transitions.
+     Easing: standard for most UI; spring/bounce for micro-interactions.
+     ──────────────────────────────────────────────── */
+
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  --duration-slower: 500ms;
+  --duration-loading: 1500ms;
+
+  /* Named easing curves (CSS cubic-bezier equivalents of Material/Fluent) */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); /* Best for most UI transitions */
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1); /* Elements entering the screen */
+  --ease-accelerate: cubic-bezier(0.3, 0, 1, 1); /* Elements leaving the screen */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* Springy, bouncy feel */
+  --ease-bounce: cubic-bezier(0.68, -0.6, 0.32, 1.6); /* Exaggerated bounce */
+
+  /* Animation shorthand utilities (animate-* classes) */
+  --animate-fade-in: fade-in var(--duration-normal) var(--ease-out) both;
+  --animate-fade-out: fade-out var(--duration-fast) var(--ease-in) both;
+  --animate-slide-up: slide-up var(--duration-normal) var(--ease-out) both;
+  --animate-slide-down: slide-down var(--duration-normal) var(--ease-out) both;
+  --animate-slide-in-left: slide-in-left var(--duration-normal) var(--ease-out) both;
+  --animate-slide-in-right: slide-in-right var(--duration-normal) var(--ease-out) both;
+  --animate-scale-in: scale-in var(--duration-normal) var(--ease-spring) both;
+  --animate-scale-out: scale-out var(--duration-fast) var(--ease-in) both;
+  --animate-spin: spin var(--duration-loading) linear infinite;
+  --animate-ping: ping 1s var(--ease-out) infinite;
+  --animate-pulse: pulse 2s var(--ease-in-out) infinite;
+  --animate-shimmer: shimmer 1.5s linear infinite;
+  --animate-bounce-in: bounce-in var(--duration-slow) var(--ease-spring) both;
+
+  /* ────────────────────────────────────────────────
+     LAYOUT TOKENS
+     ──────────────────────────────────────────────── */
+
+  /* Container max-widths */
+  --container-xs: 480px;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1400px;
+
+  /* Responsive gutters */
+  --container-padding-x: 1.5rem; /* Default horizontal page padding */
+  --section-padding-y: 5rem; /* Default vertical section spacing */
+  --section-padding-y-sm: 3rem; /* Compact section spacing (mobile) */
+  --grid-gutter: 1.5rem; /* Gap between grid columns */
+
+  /* Extra wide breakpoint (beyond Tailwind default 2xl:1536px) */
+  --breakpoint-3xl: 1920px;
+
+  /* ────────────────────────────────────────────────
+     Z-INDEX SCALE
+     Always use these names — never use magic numbers.
+     Usage: z-[var(--z-modal)] or directly via z-dropdown etc.
+     ──────────────────────────────────────────────── */
+
+  --z-base: 0;
+  --z-raised: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-toast: 1070;
+  --z-tooltip: 1080;
+  --z-overlay: 1090;
+
+  /* ────────────────────────────────────────────────
+     OPACITY SCALE
+     ──────────────────────────────────────────────── */
+
+  --opacity-disabled: 0.4;
+  --opacity-muted: 0.6;
+  --opacity-subtle: 0.8;
+  --opacity-full: 1;
+
+  /* ────────────────────────────────────────────────
+     BORDER WIDTHS
+     ──────────────────────────────────────────────── */
+
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 4px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   DARK THEME — Explicit user preference
+   Applied when <html data-theme="dark"> is set by ThemeProvider
+   ────────────────────────────────────────────────────────────────────────── */
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Background */
+  --color-background: oklch(12% 0.01 247.9);
+  --color-background-subtle: oklch(15% 0.012 247.9);
+  --color-background-muted: oklch(17% 0.013 247.9);
+
+  /* Surface */
+  --color-surface: oklch(17% 0.013 247.9);
+  --color-surface-raised: oklch(20% 0.014 247.9);
+  --color-surface-overlay: oklch(22% 0.014 247.9);
+  --color-surface-sunken: oklch(14% 0.011 247.9);
+
+  /* Borders */
+  --color-border: oklch(28% 0.014 247.9);
+  --color-border-strong: oklch(38% 0.015 247.9);
+  --color-border-subtle: oklch(22% 0.012 247.9);
+
+  /* Foreground */
+  --color-foreground: oklch(97% 0.003 247.9);
+  --color-foreground-secondary: oklch(80% 0.01 247.9);
+  --color-foreground-muted: oklch(62% 0.013 247.9);
+  --color-foreground-disabled: oklch(45% 0.01 247.9);
+  --color-foreground-on-dark: oklch(97% 0.003 247.9);
+
+  /* Muted */
+  --color-muted: oklch(20% 0.013 247.9);
+  --color-muted-foreground: oklch(62% 0.013 247.9);
+
+  /* Secondary */
+  --color-secondary: oklch(20% 0.013 247.9);
+  --color-secondary-hover: oklch(25% 0.014 247.9);
+  --color-secondary-active: oklch(29% 0.014 247.9);
+  --color-secondary-foreground: oklch(97% 0.003 247.9);
+
+  /* Shadows — more pronounced in dark mode to maintain depth perception */
+  --shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.2);
+  --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.3), 0 1px 2px oklch(0% 0 0 / 0.2);
+  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.3), 0 2px 4px -2px oklch(0% 0 0 / 0.2);
+  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.35), 0 4px 6px -4px oklch(0% 0 0 / 0.2);
+  --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 0.4), 0 8px 10px -6px oklch(0% 0 0 / 0.2);
+  --shadow-2xl: 0 25px 50px -12px oklch(0% 0 0 / 0.5);
+  --shadow-inner: inset 0 2px 4px oklch(0% 0 0 / 0.2);
+
+  /* Overlays */
+  --color-overlay: oklch(0% 0 0 / 0.7);
+  --color-overlay-subtle: oklch(0% 0 0 / 0.3);
+  --color-overlay-strong: oklch(0% 0 0 / 0.9);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   DARK THEME — System preference fallback
+   Applied when OS prefers dark mode AND no explicit theme is set
+   ────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --color-background: oklch(12% 0.01 247.9);
+    --color-background-subtle: oklch(15% 0.012 247.9);
+    --color-background-muted: oklch(17% 0.013 247.9);
+    --color-surface: oklch(17% 0.013 247.9);
+    --color-surface-raised: oklch(20% 0.014 247.9);
+    --color-surface-overlay: oklch(22% 0.014 247.9);
+    --color-surface-sunken: oklch(14% 0.011 247.9);
+    --color-border: oklch(28% 0.014 247.9);
+    --color-border-strong: oklch(38% 0.015 247.9);
+    --color-border-subtle: oklch(22% 0.012 247.9);
+    --color-foreground: oklch(97% 0.003 247.9);
+    --color-foreground-secondary: oklch(80% 0.01 247.9);
+    --color-foreground-muted: oklch(62% 0.013 247.9);
+    --color-foreground-disabled: oklch(45% 0.01 247.9);
+    --color-foreground-on-dark: oklch(97% 0.003 247.9);
+    --color-muted: oklch(20% 0.013 247.9);
+    --color-muted-foreground: oklch(62% 0.013 247.9);
+    --color-secondary: oklch(20% 0.013 247.9);
+    --color-secondary-hover: oklch(25% 0.014 247.9);
+    --color-secondary-active: oklch(29% 0.014 247.9);
+    --color-secondary-foreground: oklch(97% 0.003 247.9);
+    --shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.2);
+    --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.3), 0 1px 2px oklch(0% 0 0 / 0.2);
+    --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.3), 0 2px 4px -2px oklch(0% 0 0 / 0.2);
+    --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.35), 0 4px 6px -4px oklch(0% 0 0 / 0.2);
+    --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 0.4), 0 8px 10px -6px oklch(0% 0 0 / 0.2);
+    --shadow-2xl: 0 25px 50px -12px oklch(0% 0 0 / 0.5);
+    --shadow-inner: inset 0 2px 4px oklch(0% 0 0 / 0.2);
+    --color-overlay: oklch(0% 0 0 / 0.7);
+    --color-overlay-subtle: oklch(0% 0 0 / 0.3);
+    --color-overlay-strong: oklch(0% 0 0 / 0.9);
+  }
+}

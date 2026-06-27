@@ -1,3 +1,3 @@
-// Common reusable components — implementation in Task-002
-// Button, Input, Textarea, Card, Badge, Spinner, Skeleton, Alert, Modal, etc.
-export {}
+export type { IconColor, IconProps, IconSize } from './Icon'
+export { Icon } from './Icon'
+// Future: Button, Input, Textarea, Card, Badge, Spinner, Alert, Modal — Task-003
