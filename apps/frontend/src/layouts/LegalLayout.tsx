@@ -3,17 +3,17 @@ import { Outlet } from 'react-router-dom'
 import { ScrollToTop } from '@/components/layout'
 
 /**
- * BlogLayout — shell for blog listing and article pages.
+ * LegalLayout — shell for legal and policy pages (Privacy, Terms, Cookies).
  *
- * Optimized for reading:
- *  - Sticky header for navigation while scrolling long articles
- *  - Content area ready for narrow reading containers
- *  - Progress indicator slot (added in TASK-005)
- *  - Standard footer
+ * Differences from PublicLayout:
+ *  - Narrow prose width (reading-optimized)
+ *  - Standard sticky header for navigation
+ *  - Last updated / breadcrumb slot (added in TASK-005)
+ *  - Full footer for trust signals
  *
- * Used by: /blog, /blog/:slug
+ * Used by: /privacy, /terms, /cookies
  */
-export function BlogLayout() {
+export function LegalLayout() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       {/* ── Accessibility: skip navigation ── */}
@@ -33,7 +33,7 @@ export function BlogLayout() {
         </div>
       </header>
 
-      {/* ── Main content ── */}
+      {/* ── Main content — narrow reading width ── */}
       <main id="main-content" role="main" className="flex-1 outline-none" tabIndex={-1}>
         <ScrollToTop />
         <Outlet />
@@ -43,7 +43,7 @@ export function BlogLayout() {
       <footer role="contentinfo" className="border-t border-border bg-surface">
         <div className="container py-10">
           <p className="text-center type-caption text-foreground-muted">
-            © {new Date().getFullYear()} ToolNest — Free Online Productivity Tools
+            © {new Date().getFullYear()} ToolNest — All rights reserved.
           </p>
         </div>
       </footer>
