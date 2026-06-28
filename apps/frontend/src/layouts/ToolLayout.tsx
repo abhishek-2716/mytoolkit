@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router-dom'
 
 import { ScrollToTop } from '@/components/layout'
+import { AppHeader } from '@/components/navigation'
+
+import { appConfig } from '@/config'
 
 /**
  * ToolLayout — shell for individual tool pages.
  *
- * Differences from PublicLayout:
- *  - Header is less prominent (tool UI takes focus)
- *  - No sticky header (tools may need full viewport height)
- *  - Main has no padding (each tool manages its own spacing)
- *  - Minimal footer
+ * Uses 'solid' header mode (no transparency) so the tool UI
+ * always has a clearly defined top boundary.
  *
  * Used by: /tools/:slug (all individual tool pages)
  */
@@ -21,14 +21,8 @@ export function ToolLayout() {
         Skip to main content
       </a>
 
-      {/* ── Header — Navbar implemented in TASK-005 ── */}
-      <header role="banner" className="border-b border-border bg-background">
-        <div className="container flex h-14 items-center justify-between">
-          {/* Placeholder — replaced by <Navbar /> in TASK-005 */}
-          <span className="type-label font-bold text-foreground">ToolNest</span>
-          <nav aria-label="Primary navigation" />
-        </div>
-      </header>
+      {/* ── Header — solid mode; tool UI needs defined top boundary ── */}
+      <AppHeader mode="solid" />
 
       {/* ── Main content ── */}
       <main id="main-content" role="main" className="flex-1 outline-none" tabIndex={-1}>
@@ -39,7 +33,7 @@ export function ToolLayout() {
       {/* ── Minimal footer ── */}
       <footer role="contentinfo" className="border-t border-border bg-background py-4">
         <div className="container text-center type-caption text-foreground-muted">
-          © {new Date().getFullYear()} ToolNest
+          © {new Date().getFullYear()} {appConfig.name}
         </div>
       </footer>
     </div>

@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router-dom'
 
 import { ScrollToTop } from '@/components/layout'
+import { AppHeader } from '@/components/navigation'
+
+import { appConfig } from '@/config'
 
 /**
  * BlogLayout — shell for blog listing and article pages.
  *
- * Optimized for reading:
- *  - Sticky header for navigation while scrolling long articles
- *  - Content area ready for narrow reading containers
- *  - Progress indicator slot (added in TASK-005)
- *  - Standard footer
+ * Optimized for reading with a sticky header that stays
+ * visible while scrolling through long articles.
  *
  * Used by: /blog, /blog/:slug
  */
@@ -21,17 +21,8 @@ export function BlogLayout() {
         Skip to main content
       </a>
 
-      {/* ── Header — Navbar implemented in TASK-005 ── */}
-      <header
-        role="banner"
-        className="sticky top-0 z-[var(--z-sticky)] border-b border-border bg-background/95 backdrop-blur-sm"
-      >
-        <div className="container flex h-16 items-center justify-between">
-          {/* Placeholder — replaced by <Navbar /> in TASK-005 */}
-          <span className="type-label font-bold text-foreground">ToolNest</span>
-          <nav aria-label="Primary navigation" />
-        </div>
-      </header>
+      {/* ── Header ── */}
+      <AppHeader mode="sticky" />
 
       {/* ── Main content ── */}
       <main id="main-content" role="main" className="flex-1 outline-none" tabIndex={-1}>
@@ -39,11 +30,11 @@ export function BlogLayout() {
         <Outlet />
       </main>
 
-      {/* ── Footer — implemented in TASK-005 ── */}
+      {/* ── Footer — full version in TASK-006+ ── */}
       <footer role="contentinfo" className="border-t border-border bg-surface">
         <div className="container py-10">
           <p className="text-center type-caption text-foreground-muted">
-            © {new Date().getFullYear()} ToolNest — Free Online Productivity Tools
+            © {new Date().getFullYear()} {appConfig.name} — Free Online Productivity Tools
           </p>
         </div>
       </footer>
