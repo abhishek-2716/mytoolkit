@@ -1,6 +1,0 @@
-export type * from './api.types'
-export type * from './blog.types'
-export type * from './seo.types'
-export type * from './tool.types'
-export type * from './ui.types'
-export type * from './upload.types'

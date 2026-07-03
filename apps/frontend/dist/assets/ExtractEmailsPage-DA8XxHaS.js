@@ -1,6 +1,0 @@
-import{j as a}from"./vendor-motion-CP_rp1gz.js";import{d as n,i as s,c as l,v as m,a as c}from"./ToolEngine-6pw_elVv.js";import"./vendor-ui-hUu0nIou.js";import{v as d}from"./index-BEzoZwSO.js";import"./zod-BG0VYgA8.js";import"./ToolDetailPage-clslUbYm.js";import"./seo.config-j3Bty0Pv.js";import"./useRecentTools-CaEHhbRw.js";import"./vendor-router-DIk1Y-Yj.js";import"./vendor-query-Bsei7Dhf.js";const p=/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/g;function u(e){const r=e.match(p)??[],t=Array.from(new Set(r));return t.length===0?"No email addresses found in the provided text.":`Found ${t.length} email address${t.length===1?"":"es"}:
-
-${t.join(`
-`)}`}const o=d("extract-emails");if(!o)throw new Error("[ToolEngine] extract-emails not found in registry");const f=n({tool:o,processingMode:"browser",input:{type:"text",placeholder:`Paste any text containing email addresses...
-
-The tool will extract all email addresses it finds.`,maxLength:5e5,validate:e=>e.trim()?m(e):s(l("validation-error","Enter text to extract emails from.",{retryable:!1}))},process:(e,r,t)=>{t(50);const i=u(e);return t(100),i},resultType:"text",layoutMode:"split"});function z(){return a.jsx(c,{config:f})}export{z as default};

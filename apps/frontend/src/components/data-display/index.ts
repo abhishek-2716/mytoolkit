@@ -1,8 +1,0 @@
-export type { AccordionItemData, AccordionProps } from './Accordion'
-export { Accordion } from './Accordion'
-export type { BadgeSize, BadgeVariant } from './Badge'
-export { Badge } from './Badge'
-export type { TabItem } from './Tabs'
-export { Tabs } from './Tabs'
-export type { TooltipPlacement } from './Tooltip'
-export { Tooltip } from './Tooltip'
