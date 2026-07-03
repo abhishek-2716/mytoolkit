@@ -1,9 +1,7 @@
 import { Outlet } from 'react-router-dom'
 
-import { ScrollToTop } from '@/components/layout'
+import { MinimalFooter, ScrollToTop } from '@/components/layout'
 import { AppHeader } from '@/components/navigation'
-
-import { appConfig } from '@/config'
 
 /**
  * LegalLayout — shell for legal and policy pages (Privacy, Terms, Cookies).
@@ -30,14 +28,8 @@ export function LegalLayout() {
         <Outlet />
       </main>
 
-      {/* ── Footer — full version in TASK-006+ ── */}
-      <footer role="contentinfo" className="border-t border-border bg-surface">
-        <div className="container py-10">
-          <p className="text-center type-caption text-foreground-muted">
-            © {new Date().getFullYear()} {appConfig.name} — All rights reserved.
-          </p>
-        </div>
-      </footer>
+      {/* ── Footer ── */}
+      <MinimalFooter tagline="All rights reserved." />
     </div>
   )
 }

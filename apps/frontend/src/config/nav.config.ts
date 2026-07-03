@@ -1,5 +1,5 @@
 /**
- * Navigation Configuration — ToolNest
+ * Navigation Configuration — MyToolsHub
  * ══════════════════════════════════════════════════════════════════════════
  *
  * Single source of truth for all navigation structure.

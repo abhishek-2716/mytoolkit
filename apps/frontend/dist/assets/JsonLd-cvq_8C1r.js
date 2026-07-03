@@ -1,0 +1,1 @@
+import{j as r}from"./vendor-motion-CP_rp1gz.js";import{H as i}from"./index-BEzoZwSO.js";function o({data:t}){return r.jsx(i,{children:r.jsx("script",{type:"application/ld+json",children:JSON.stringify(t)})})}export{o as J};

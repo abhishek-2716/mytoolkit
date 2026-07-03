@@ -1,0 +1,26 @@
+# MyToolsHub - robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Disallow non-indexable paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /404
+Disallow: /500
+Disallow: /*.json$
+Disallow: /cdn-cgi/
+
+# Crawl delay for heavy crawlers
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemaps
+Sitemap: https://mytoolshub.store/sitemap.xml

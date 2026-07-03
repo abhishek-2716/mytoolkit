@@ -1,9 +1,7 @@
 import { Outlet } from 'react-router-dom'
 
-import { ScrollToTop } from '@/components/layout'
+import { MinimalFooter, ScrollToTop } from '@/components/layout'
 import { AppHeader } from '@/components/navigation'
-
-import { appConfig } from '@/config'
 
 /**
  * ToolLayout — shell for individual tool pages.
@@ -31,11 +29,7 @@ export function ToolLayout() {
       </main>
 
       {/* ── Minimal footer ── */}
-      <footer role="contentinfo" className="border-t border-border bg-background py-4">
-        <div className="container text-center type-caption text-foreground-muted">
-          © {new Date().getFullYear()} {appConfig.name}
-        </div>
-      </footer>
+      <MinimalFooter tagline="" />
     </div>
   )
 }

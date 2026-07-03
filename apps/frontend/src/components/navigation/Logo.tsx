@@ -52,7 +52,7 @@ const textSizeMap: Record<LogoSize, string> = {
 /* ─── SVG Icon Mark ──────────────────────────────────────────────────────── */
 
 /**
- * ToolNest brand mark — a stylized wrench inside a rounded square.
+ * MyToolsHub brand mark — a stylized toolbox inside a rounded square.
  * The icon is purely decorative when paired with the text variant.
  */
 function LogoMark({ size = 'md' }: { size?: LogoSize }) {
@@ -69,14 +69,18 @@ function LogoMark({ size = 'md' }: { size?: LogoSize }) {
     >
       {/* Rounded background */}
       <rect width="32" height="32" rx="8" className="fill-primary" />
-      {/* Wrench handle */}
+      {/* Toolbox handle — hollow U-arch */}
       <path
-        d="M20.5 8.5C22.4 10.4 22.4 13.6 20.5 15.5L15.5 20.5C13.6 22.4 10.4 22.4 8.5 20.5C6.6 18.6 6.6 15.4 8.5 13.5L10.3 11.7L12.1 13.5L10.3 15.3C9.3 16.3 9.3 17.9 10.3 18.9C11.3 19.9 12.9 19.9 13.9 18.9L18.9 13.9C19.9 12.9 19.9 11.3 18.9 10.3L17.8 9.2L19.4 7.6L20.5 8.5Z"
+        d="M13 16 L13 12 Q13 9 16 9 Q19 9 19 12 L19 16 L17 16 L17 12 Q17 10.5 16 10.5 Q15 10.5 15 12 L15 16 Z"
         className="fill-primary-foreground"
         opacity="0.95"
       />
-      {/* Nest dot — top right accent */}
-      <circle cx="22" cy="10" r="3" className="fill-primary-foreground" opacity="0.7" />
+      {/* Toolbox body */}
+      <rect x="5" y="16" width="22" height="12" rx="2" className="fill-primary-foreground" opacity="0.9" />
+      {/* Compartment divider */}
+      <rect x="5" y="21" width="22" height="1.5" className="fill-primary" opacity="0.35" />
+      {/* Center latch */}
+      <rect x="14" y="19.5" width="4" height="3" rx="0.75" className="fill-primary" opacity="0.55" />
     </svg>
   )
 }
@@ -84,7 +88,7 @@ function LogoMark({ size = 'md' }: { size?: LogoSize }) {
 /* ─── Component ──────────────────────────────────────────────────────────── */
 
 /**
- * Logo — ToolNest brand identity component.
+ * Logo — MyToolsHub brand identity component.
  *
  * Renders a link to the home page with the brand mark and/or name.
  * Supports three variants: icon-only, text-only, and full (icon + text).

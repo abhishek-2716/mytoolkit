@@ -120,6 +120,11 @@
     text-underline-offset: 3px;
   }
 
+  /* Card and nav links must never show underline on hover */
+  a.no-underline:hover {
+    text-decoration: none;
+  }
+
   /* ── Images and media ── */
   img,
   video,

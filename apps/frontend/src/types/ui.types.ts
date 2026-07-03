@@ -1,7 +1,3 @@
-/** UI theme preferences */
-export type Theme = 'light' | 'dark' | 'system'
-export type ResolvedTheme = 'light' | 'dark'
-
 /** T-shirt size scale used across Button, Badge, Icon, etc. */
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
@@ -22,18 +18,6 @@ export interface BreadcrumbItem {
   isCurrentPage?: boolean
 }
 
-/** Navigation link entry */
-export interface NavItem {
-  label: string
-  href: string
-  icon?: string
-  /** Badge text — e.g. "New" */
-  badge?: string
-  /** Whether the link should open in a new tab */
-  external?: boolean
-  children?: NavItem[]
-}
-
 /** Option in a <select> or ComboBox */
 export interface SelectOption<T = string> {
   label: string
@@ -41,14 +25,6 @@ export interface SelectOption<T = string> {
   description?: string
   disabled?: boolean
   icon?: string
-}
-
-/** Tabbed navigation item */
-export interface TabItem {
-  id: string
-  label: string
-  icon?: string
-  disabled?: boolean
 }
 
 /** Generic key→value pair */

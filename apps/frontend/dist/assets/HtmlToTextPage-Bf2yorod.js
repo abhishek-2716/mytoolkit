@@ -1,0 +1,7 @@
+import{j as i}from"./vendor-motion-CP_rp1gz.js";import{d as a,i as l,c as p,v as s,a as c}from"./ToolEngine-6pw_elVv.js";import"./vendor-ui-hUu0nIou.js";import{v as m}from"./index-BEzoZwSO.js";import"./zod-BG0VYgA8.js";import"./ToolDetailPage-clslUbYm.js";import"./seo.config-j3Bty0Pv.js";import"./useRecentTools-CaEHhbRw.js";import"./vendor-router-DIk1Y-Yj.js";import"./vendor-query-Bsei7Dhf.js";const u={"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&apos;":"'","&nbsp;":" ","&copy;":"©","&reg;":"®","&trade;":"™","&mdash;":"—","&ndash;":"–","&hellip;":"…","&laquo;":"«","&raquo;":"»","&euro;":"€","&pound;":"£","&yen;":"¥"};function d(t){let r=t.replace(/&[a-zA-Z]+;/g,e=>u[e]??e);return r=r.replace(/&#(\d+);/g,(e,o)=>String.fromCharCode(Number(o))),r=r.replace(/&#x([0-9a-fA-F]+);/g,(e,o)=>String.fromCharCode(parseInt(o,16))),r}function g(t){return t.replace(/<br\s*\/?>/gi,`
+`).replace(/<\/?(p|div|h[1-6]|li|tr|td|th|blockquote|pre)[^>]*>/gi,`
+`).replace(/<[^>]+>/g,"").replace(/\n{3,}/g,`
+
+`).trim()}const n=m("html-to-text");if(!n)throw new Error("[ToolEngine] html-to-text not found in registry");const f=a({tool:n,processingMode:"browser",input:{type:"text",placeholder:`Paste HTML content here to extract plain text...
+
+Example: <h1>Hello</h1><p>World</p>`,maxLength:5e5,validate:t=>t.trim()?s(t):l(p("validation-error","Enter HTML content to convert.",{retryable:!1}))},process:(t,r,e)=>{e(50);const o=d(g(t));return e(100),o},resultType:"text",layoutMode:"split"});function I(){return i.jsx(c,{config:f})}export{I as default};

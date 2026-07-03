@@ -3,6 +3,7 @@ export { Container, ContainerFluid, ContainerNarrow, ContainerWide } from './Con
 export type { ErrorFallbackProps } from './ErrorBoundary'
 export { DefaultErrorFallback, ErrorBoundary } from './ErrorBoundary'
 export { LoadingBoundary } from './LoadingBoundary'
+export { MinimalFooter } from './MinimalFooter'
 export { PageLoader } from './PageLoader'
 export type { PageWrapperProps } from './PageWrapper'
 export { PageWrapper } from './PageWrapper'

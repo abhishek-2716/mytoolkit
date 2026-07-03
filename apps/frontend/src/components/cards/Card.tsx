@@ -81,15 +81,16 @@ export function Card({
   children,
   ...props
 }: CardProps) {
+  const Element = Tag as unknown as 'div'
   return (
     <CardContext.Provider value={{ variant, padding, radius, disabled }}>
-      <Tag
+      <Element
         className={cardVariants({ variant, padding, radius, disabled, fullWidth, className })}
         aria-disabled={disabled || undefined}
         {...props}
       >
         {children}
-      </Tag>
+      </Element>
     </CardContext.Provider>
   )
 }

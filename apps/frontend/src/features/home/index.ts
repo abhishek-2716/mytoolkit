@@ -1,2 +1,12 @@
-// Home feature — Hero, PopularTools, Categories, Statistics, HowItWorks — Task-003
-export {}
+export { ActiveToolsSection } from './components/ActiveToolsSection'
+export { CategoryGrid } from './components/CategoryGrid'
+export { FaqPreview } from './components/FaqPreview'
+export { FeaturedGrid } from './components/FeaturedGrid'
+export { HeroBanner } from './components/HeroBanner'
+export { HowItWorks } from './components/HowItWorks'
+export { NewsletterBanner } from './components/NewsletterBanner'
+export { RecentTools } from './components/RecentTools'
+export { StatsBanner } from './components/StatsBanner'
+export { ToolCard } from './components/ToolCard'
+export { UpcomingTools } from './components/UpcomingTools'
+export { WhyChooseUs } from './components/WhyChooseUs'

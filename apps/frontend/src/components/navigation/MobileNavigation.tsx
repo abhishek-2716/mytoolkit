@@ -12,19 +12,19 @@ import { SearchTrigger } from './SearchTrigger'
 
 const overlayVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.2, ease: 'easeOut' } },
-  exit: { opacity: 0, transition: { duration: 0.15, ease: 'easeIn' } },
+  visible: { opacity: 1, transition: { duration: 0.2, ease: 'easeOut' as const } },
+  exit: { opacity: 0, transition: { duration: 0.15, ease: 'easeIn' as const } },
 }
 
 const drawerVariants = {
   hidden: { x: '100%' },
   visible: {
     x: 0,
-    transition: { type: 'spring', stiffness: 400, damping: 40 },
+    transition: { type: 'spring' as const, stiffness: 400, damping: 40 },
   },
   exit: {
     x: '100%',
-    transition: { duration: 0.2, ease: [0.4, 0, 1, 1] },
+    transition: { duration: 0.2, ease: [0.4, 0, 1, 1] as [number, number, number, number] },
   },
 }
 

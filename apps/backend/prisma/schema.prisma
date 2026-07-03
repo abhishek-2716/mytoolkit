@@ -1,0 +1,390 @@
+// MyToolsHub — Prisma Schema
+// Database: MySQL (MySQL Workbench)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────────────────────
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum AdType {
+  BANNER
+  SIDEBAR
+  INLINE
+  POPUP
+}
+
+enum SubscriberStatus {
+  PENDING
+  ACTIVE
+  UNSUBSCRIBED
+}
+
+enum MessageStatus {
+  UNREAD
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+// ─────────────────────────────────────────────────────────────
+// AUTH / USERS
+// ─────────────────────────────────────────────────────────────
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  password     String
+  name         String
+  role         Role      @default(ADMIN)
+  avatar       String?
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("users")
+}
+
+// ─────────────────────────────────────────────────────────────
+// BLOG
+// ─────────────────────────────────────────────────────────────
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String     @db.VarChar(255)
+  slug        String     @unique @db.VarChar(255)
+  excerpt     String?    @db.Text
+  content     String     @db.LongText
+  coverImage  String?    @db.VarChar(500)
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+  readingTime Int?
+  viewCount   Int        @default(0)
+  isFeatured  Boolean    @default(false)
+  authorId    String
+  author      Author     @relation(fields: [authorId], references: [id])
+  categories  PostCategory[]
+  tags        PostTag[]
+  seoMeta     SeoMeta?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([status])
+  @@index([publishedAt])
+  @@index([authorId])
+  @@map("posts")
+}
+
+model Author {
+  id        String   @id @default(cuid())
+  name      String   @db.VarChar(100)
+  slug      String   @unique @db.VarChar(100)
+  bio       String?  @db.Text
+  avatar    String?  @db.VarChar(500)
+  email     String?  @db.VarChar(255)
+  twitter   String?  @db.VarChar(100)
+  linkedin  String?  @db.VarChar(200)
+  website   String?  @db.VarChar(500)
+  isActive  Boolean  @default(true)
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("authors")
+}
+
+model Category {
+  id          String         @id @default(cuid())
+  name        String         @db.VarChar(100)
+  slug        String         @unique @db.VarChar(100)
+  description String?        @db.Text
+  color       String?        @db.VarChar(20)
+  icon        String?        @db.VarChar(50)
+  order       Int            @default(0)
+  isActive    Boolean        @default(true)
+  posts       PostCategory[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@map("categories")
+}
+
+model Tag {
+  id        String    @id @default(cuid())
+  name      String    @db.VarChar(100)
+  slug      String    @unique @db.VarChar(100)
+  posts     PostTag[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("tags")
+}
+
+model PostCategory {
+  postId     String
+  categoryId String
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([postId, categoryId])
+  @@map("post_categories")
+}
+
+model PostTag {
+  postId String
+  tagId  String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+  @@map("post_tags")
+}
+
+// ─────────────────────────────────────────────────────────────
+// SEO METADATA
+// ─────────────────────────────────────────────────────────────
+
+model SeoMeta {
+  id              String   @id @default(cuid())
+  postId          String?  @unique
+  post            Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  entityType      String?  @db.VarChar(50)
+  entitySlug      String?  @db.VarChar(255)
+  metaTitle       String?  @db.VarChar(255)
+  metaDescription String?  @db.VarChar(500)
+  ogTitle         String?  @db.VarChar(255)
+  ogDescription   String?  @db.VarChar(500)
+  ogImage         String?  @db.VarChar(500)
+  canonicalUrl    String?  @db.VarChar(500)
+  noIndex         Boolean  @default(false)
+  structuredData  Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([entityType, entitySlug])
+  @@map("seo_meta")
+}
+
+// ─────────────────────────────────────────────────────────────
+// HERO BANNERS
+// ─────────────────────────────────────────────────────────────
+
+model Banner {
+  id               String    @id @default(cuid())
+  title            String    @db.VarChar(255)
+  subtitle         String?   @db.VarChar(500)
+  badge            String?   @db.VarChar(100)
+  ctaText          String?   @db.VarChar(100)
+  ctaUrl           String?   @db.VarChar(500)
+  ctaSecondaryText String?   @db.VarChar(100)
+  ctaSecondaryUrl  String?   @db.VarChar(500)
+  image            String?   @db.VarChar(500)
+  bgColor          String?   @db.VarChar(50)
+  placement        String    @default("hero") @db.VarChar(50)
+  isActive         Boolean   @default(true)
+  startDate        DateTime?
+  endDate          DateTime?
+  order            Int       @default(0)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@map("banners")
+}
+
+// ─────────────────────────────────────────────────────────────
+// FOOTER LINKS
+// ─────────────────────────────────────────────────────────────
+
+model FooterLink {
+  id         String   @id @default(cuid())
+  label      String   @db.VarChar(100)
+  url        String   @db.VarChar(500)
+  section    String   @db.VarChar(50)
+  icon       String?  @db.VarChar(50)
+  order      Int      @default(0)
+  isActive   Boolean  @default(true)
+  isExternal Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([section])
+  @@map("footer_links")
+}
+
+// ─────────────────────────────────────────────────────────────
+// ABOUT PAGE
+// ─────────────────────────────────────────────────────────────
+
+model AboutPage {
+  id          String   @id @default(cuid())
+  heroTitle   String   @db.VarChar(255)
+  heroSubtext String?  @db.Text
+  mission     String?  @db.Text
+  vision      String?  @db.Text
+  stats       Json?
+  teamMembers Json?
+  values      Json?
+  updatedAt   DateTime @updatedAt
+
+  @@map("about_page")
+}
+
+// ─────────────────────────────────────────────────────────────
+// FAQ
+// ─────────────────────────────────────────────────────────────
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String   @db.VarChar(500)
+  answer    String   @db.Text
+  category  String?  @db.VarChar(100)
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@map("faqs")
+}
+
+// ─────────────────────────────────────────────────────────────
+// ADVERTISEMENTS
+// ─────────────────────────────────────────────────────────────
+
+model Advertisement {
+  id          String    @id @default(cuid())
+  name        String    @db.VarChar(100)
+  type        AdType    @default(BANNER)
+  placement   String    @db.VarChar(100)
+  code        String?   @db.LongText
+  imageUrl    String?   @db.VarChar(500)
+  linkUrl     String?   @db.VarChar(500)
+  altText     String?   @db.VarChar(255)
+  width       Int?
+  height      Int?
+  isActive    Boolean   @default(true)
+  startDate   DateTime?
+  endDate     DateTime?
+  impressions Int       @default(0)
+  clicks      Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([placement, isActive])
+  @@map("advertisements")
+}
+
+// ─────────────────────────────────────────────────────────────
+// SPONSORSHIPS
+// ─────────────────────────────────────────────────────────────
+
+model Sponsorship {
+  id          String    @id @default(cuid())
+  company     String    @db.VarChar(100)
+  logoUrl     String?   @db.VarChar(500)
+  website     String?   @db.VarChar(500)
+  placement   String    @db.VarChar(100)
+  tagline     String?   @db.VarChar(255)
+  description String?   @db.Text
+  tier        String    @default("standard") @db.VarChar(50)
+  isActive    Boolean   @default(true)
+  startDate   DateTime?
+  endDate     DateTime?
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("sponsorships")
+}
+
+// ─────────────────────────────────────────────────────────────
+// ANALYTICS
+// ─────────────────────────────────────────────────────────────
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String   @db.VarChar(500)
+  referrer  String?  @db.VarChar(500)
+  userAgent String?  @db.VarChar(500)
+  country   String?  @db.VarChar(5)
+  device    String?  @db.VarChar(20)
+  sessionId String?  @db.VarChar(100)
+  createdAt DateTime @default(now())
+
+  @@index([path])
+  @@index([createdAt])
+  @@map("page_views")
+}
+
+model ToolUsage {
+  id        String   @id @default(cuid())
+  toolSlug  String   @db.VarChar(100)
+  action    String   @db.VarChar(50)
+  sessionId String?  @db.VarChar(100)
+  country   String?  @db.VarChar(5)
+  createdAt DateTime @default(now())
+
+  @@index([toolSlug])
+  @@index([createdAt])
+  @@map("tool_usages")
+}
+
+// ─────────────────────────────────────────────────────────────
+// NEWSLETTER
+// ─────────────────────────────────────────────────────────────
+
+model NewsletterSubscriber {
+  id              String           @id @default(cuid())
+  email           String           @unique @db.VarChar(255)
+  name            String?          @db.VarChar(100)
+  status          SubscriberStatus @default(ACTIVE)
+  source          String?          @db.VarChar(50)
+  confirmToken    String?          @db.VarChar(100)
+  unsubToken      String?          @db.VarChar(100)
+  confirmedAt     DateTime?
+  unsubscribedAt  DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@map("newsletter_subscribers")
+}
+
+// ─────────────────────────────────────────────────────────────
+// CONTACT MESSAGES
+// ─────────────────────────────────────────────────────────────
+
+model ContactMessage {
+  id        String        @id @default(cuid())
+  name      String        @db.VarChar(100)
+  email     String        @db.VarChar(255)
+  subject   String?       @db.VarChar(255)
+  message   String        @db.Text
+  status    MessageStatus @default(UNREAD)
+  ipAddress String?       @db.VarChar(45)
+  userAgent String?       @db.VarChar(500)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status])
+  @@map("contact_messages")
+}

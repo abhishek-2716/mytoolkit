@@ -1,4 +1,4 @@
-import { ThemeSwitcher } from '@/components/common'
+import { ThemeToggle } from '@/components/common'
 
 import { cn } from '@/utils'
 
@@ -41,8 +41,8 @@ export function NavigationActions({ onSearchOpen, className }: NavigationActions
       {/* ── Divider ── */}
       <NavigationDivider orientation="vertical" className="h-5 mx-1 hidden sm:block" />
 
-      {/* ── Theme switcher — compact (icon-only) in header ── */}
-      <ThemeSwitcher compact />
+      {/* ── Theme toggle — single button (light ↔ dark) ── */}
+      <ThemeToggle />
 
       {/*
        * ── Future placeholders ──

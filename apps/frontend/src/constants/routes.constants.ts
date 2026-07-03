@@ -5,6 +5,7 @@
 export const ROUTES = {
   HOME: '/',
   TOOLS: '/tools',
+  ACTIVE_TOOLS: '/active-tools',
   TOOL_DETAIL: '/tools/:slug',
   CATEGORY: '/category/:slug',
   SEARCH: '/search',

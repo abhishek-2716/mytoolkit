@@ -1,6 +1,8 @@
 export type { AppHeaderProps } from './AppHeader'
 export { AppHeader } from './AppHeader'
 export { DesktopNavigation } from './DesktopNavigation'
+export { Footer } from './Footer'
+export { GlobalSearchModal } from './GlobalSearchModal'
 export type { LogoProps, LogoSize, LogoVariant } from './Logo'
 export { Logo } from './Logo'
 export type { MobileMenuProps } from './MobileMenu'

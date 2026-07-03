@@ -24,7 +24,8 @@ export interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
  * <CardTitle level={2}>Dashboard</CardTitle>
  */
 export function CardTitle({ level = 3, className, children, ...props }: CardTitleProps) {
-  const Tag = `h${level}`
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- needed for JSX element resolution
+  const Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
   return (
     <Tag

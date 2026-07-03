@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="google-site-verification" content="baZLCKFXcwwXXAAm_ipqZYb4uWu1fK256zUK4kk3RBM" />
 
     <!--
       NO-FLASH THEME SCRIPT
@@ -12,7 +13,7 @@
       (FOIT / FART) that would otherwise occur on first paint.
 
       Storage format (Zustand persist middleware):
-        key:   "toolnest-theme"
+        key:   "mytoolshub-theme"
         value: '{"state":{"theme":"dark"},"version":0}'
 
       Fallback chain:
@@ -23,7 +24,7 @@
     <script>
       (function () {
         try {
-          var STORAGE_KEY = 'toolnest-theme'
+          var STORAGE_KEY = 'mytoolshub-theme'
           var ATTR = 'data-theme'
           var stored = localStorage.getItem(STORAGE_KEY)
           var parsed = stored ? JSON.parse(stored) : null
@@ -51,16 +52,49 @@
     </script>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Browser chrome color — updated by ThemeProvider at runtime -->
-    <meta name="theme-color" content="#ffffff" />
-    <title>ToolNest — Free Online Productivity Tools</title>
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+
+    <!-- Primary SEO — overridden by react-helmet-async per page -->
+    <title>MyToolsHub — 100+ Free Online Productivity Tools</title>
     <meta
       name="description"
-      content="ToolNest provides hundreds of free online tools for PDF, images, documents, text, and more. Fast, secure, and easy to use — no sign-up required."
+      content="MyToolsHub offers 100+ free online tools for PDF, images, text, developers, calculators & generators. No signup. Works instantly in your browser."
     />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta name="author" content="MyToolsHub" />
+    <link rel="canonical" href="https://mytoolshub.store" />
+
+    <!-- Open Graph fallback -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MyToolsHub" />
+    <meta property="og:title" content="MyToolsHub — 100+ Free Online Productivity Tools" />
+    <meta property="og:description" content="100+ free online tools for PDF, images, text, developers & more. No signup. Works in your browser." />
+    <meta property="og:image" content="https://mytoolshub.store/og-default.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://mytoolshub.store" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card fallback -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@mytoolshub" />
+    <meta name="twitter:creator" content="@mytoolshub" />
+    <meta name="twitter:title" content="MyToolsHub — 100+ Free Online Productivity Tools" />
+    <meta name="twitter:description" content="100+ free online tools for PDF, images, text, developers & more. No signup. Works in your browser." />
+    <meta name="twitter:image" content="https://mytoolshub.store/og-default.png" />
   </head>
   <body>
+    <!-- Skip-to-main accessibility link -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:z-[9999] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-white focus:font-medium"
+    >
+      Skip to main content
+    </a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

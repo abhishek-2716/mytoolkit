@@ -1,5 +1,8 @@
+export { useAnalytics } from './useAnalytics'
+export { useCopyToClipboard } from './useCopyToClipboard'
 export { useDebounce } from './useDebounce'
 export { useLocalStorage } from './useLocalStorage'
 export { useIsDesktop, useIsMobile, useIsTablet, useMediaQuery } from './useMediaQuery'
+export { useRecentTools } from './useRecentTools'
 export { useScrolled } from './useScrolled'
 export { useTheme } from './useTheme'

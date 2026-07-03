@@ -1,3 +1,5 @@
+export { analyticsConfig } from './analytics.config'
+export type { AnalyticsEvent, AnalyticsEventPayload } from './analytics.config'
 export { apiConfig } from './api.config'
 export { appConfig } from './app.config'
 export type { FeatureFlag } from './feature-flags'

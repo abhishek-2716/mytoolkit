@@ -68,7 +68,7 @@ export function SearchTrigger({ variant = 'pill', onOpen, className }: SearchTri
   return (
     <button
       type="button"
-      aria-label="Search ToolNest (⌘K)"
+      aria-label="Search MyToolsHub (⌘K)"
       aria-keyshortcuts="Meta+k Control+k"
       onClick={onOpen}
       className={cn(

@@ -1,6 +1,7 @@
 import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig } from 'axios'
 
 import { apiConfig } from '@/config'
+import { STORAGE_KEYS } from '@/constants'
 
 import type { ApiResponse } from '@/types'
 
@@ -21,7 +22,7 @@ class ApiClient {
   private attachRequestInterceptor(): void {
     this.instance.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem('toolnest_token')
+        const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN)
         if (token) {
           config.headers.Authorization = `Bearer ${token}`
         }
@@ -36,7 +37,7 @@ class ApiClient {
       (response) => response,
       (error: AxiosError<ApiResponse>) => {
         if (error.response?.status === 401) {
-          localStorage.removeItem('toolnest_token')
+          localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN)
           // Future: dispatch logout action / redirect to login
         }
         return Promise.reject(this.normalizeError(error))

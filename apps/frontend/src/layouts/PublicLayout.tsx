@@ -1,9 +1,8 @@
+import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { ScrollToTop } from '@/components/layout'
-import { AppHeader } from '@/components/navigation'
-
-import { appConfig } from '@/config'
+import { AppHeader, Footer, GlobalSearchModal } from '@/components/navigation'
 
 /**
  * PublicLayout — shell for all general public-facing pages.
@@ -11,6 +10,20 @@ import { appConfig } from '@/config'
  * Used by: Home, Tools listing, Category, Search, About, Contact, FAQ
  */
 export function PublicLayout() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+
+  /* ── Global Ctrl+K / Cmd+K shortcut ─────────────────────────────────── */
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setIsSearchOpen((prev) => !prev)
+      }
+    }
+    document.addEventListener('keydown', handler)
+    return () => { document.removeEventListener('keydown', handler); }
+  }, [])
+
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       {/* ── Accessibility: skip navigation ── */}
@@ -19,7 +32,13 @@ export function PublicLayout() {
       </a>
 
       {/* ── Header ── */}
-      <AppHeader mode="sticky" />
+      <AppHeader mode="sticky" onSearchOpen={() => { setIsSearchOpen(true) }} />
+
+      {/* ── Global search modal ── */}
+      <GlobalSearchModal
+        isOpen={isSearchOpen}
+        onClose={() => { setIsSearchOpen(false) }}
+      />
 
       {/* ── Main content ── */}
       <main id="main-content" role="main" className="flex-1 outline-none" tabIndex={-1}>
@@ -27,14 +46,8 @@ export function PublicLayout() {
         <Outlet />
       </main>
 
-      {/* ── Footer — full version in TASK-006+ ── */}
-      <footer role="contentinfo" className="border-t border-border bg-surface">
-        <div className="container py-10">
-          <p className="text-center type-caption text-foreground-muted">
-            © {new Date().getFullYear()} {appConfig.name} — Free Online Productivity Tools
-          </p>
-        </div>
-      </footer>
+      {/* ── Footer ── */}
+      <Footer />
     </div>
   )
 }

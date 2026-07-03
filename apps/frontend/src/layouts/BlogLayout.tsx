@@ -1,9 +1,7 @@
 import { Outlet } from 'react-router-dom'
 
-import { ScrollToTop } from '@/components/layout'
+import { MinimalFooter, ScrollToTop } from '@/components/layout'
 import { AppHeader } from '@/components/navigation'
-
-import { appConfig } from '@/config'
 
 /**
  * BlogLayout — shell for blog listing and article pages.
@@ -30,14 +28,8 @@ export function BlogLayout() {
         <Outlet />
       </main>
 
-      {/* ── Footer — full version in TASK-006+ ── */}
-      <footer role="contentinfo" className="border-t border-border bg-surface">
-        <div className="container py-10">
-          <p className="text-center type-caption text-foreground-muted">
-            © {new Date().getFullYear()} {appConfig.name} — Free Online Productivity Tools
-          </p>
-        </div>
-      </footer>
+      {/* ── Footer ── */}
+      <MinimalFooter />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 export const appConfig = {
-  name: import.meta.env.VITE_APP_NAME ?? 'ToolNest',
+  name: import.meta.env.VITE_APP_NAME ?? 'MyToolsHub',
   description: 'Free Online Productivity Tools',
   url: import.meta.env.VITE_APP_URL ?? 'http://localhost:3000',
   version: '0.1.0',

@@ -1,32 +1,16 @@
-import type { ToolCategorySlug } from '../constants/tools.constants'
-
-export interface Tool {
-  id: string
-  slug: string
-  name: string
-  description: string
-  shortDescription: string
-  category: ToolCategorySlug
-  icon: string
-  tags: string[]
-  isNew?: boolean
-  isPopular?: boolean
-  isFeatured?: boolean
-  isComingSoon?: boolean
-  supportedFormats?: string[]
-  createdAt: string
-  updatedAt: string
-}
-
-export interface ToolCategoryInfo {
-  id: string
-  slug: string
-  name: string
-  description: string
-  icon: string
-  toolCount: number
-  color?: string
-}
+/**
+ * Re-export canonical tool types from the registry.
+ *
+ * ToolMeta is the single source of truth for all tool data.
+ */
+export type {
+  ProcessingMode,
+  ToolCategoryMeta,
+  ToolDifficulty,
+  ToolMeta,
+  ToolSeoMeta,
+  ToolStatus,
+} from '@/registry'
 
 export interface ToolStats {
   totalTools: number

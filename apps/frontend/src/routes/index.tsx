@@ -11,10 +11,13 @@ import {
   ToolLayout,
 } from '@/layouts'
 
+import { ROUTES } from '@/constants'
+
 // ── Lazy-loaded pages ──────────────────────────────────────────────────────
 // Public layout: Home, tools listing, category, search, about, contact, FAQ
 const HomePage = lazy(() => import('@/pages/HomePage'))
 const ToolsPage = lazy(() => import('@/pages/ToolsPage'))
+const ActiveToolsPage = lazy(() => import('@/pages/ActiveToolsPage'))
 const CategoryPage = lazy(() => import('@/pages/CategoryPage'))
 const SearchPage = lazy(() => import('@/pages/SearchPage'))
 const AboutPage = lazy(() => import('@/pages/AboutPage'))
@@ -52,41 +55,42 @@ export function AppRouter() {
           <Routes>
             {/* ── Public pages ── */}
             <Route element={<PublicLayout />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/tools" element={<ToolsPage />} />
-              <Route path="/category/:slug" element={<CategoryPage />} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/faq" element={<FaqPage />} />
+              <Route path={ROUTES.HOME} element={<HomePage />} />
+              <Route path={ROUTES.TOOLS} element={<ToolsPage />} />
+              <Route path={ROUTES.ACTIVE_TOOLS} element={<ActiveToolsPage />} />
+              <Route path={ROUTES.CATEGORY} element={<CategoryPage />} />
+              <Route path={ROUTES.SEARCH} element={<SearchPage />} />
+              <Route path={ROUTES.ABOUT} element={<AboutPage />} />
+              <Route path={ROUTES.CONTACT} element={<ContactPage />} />
+              <Route path={ROUTES.FAQ} element={<FaqPage />} />
             </Route>
 
             {/* ── Tool runner ── */}
             <Route element={<ToolLayout />}>
-              <Route path="/tools/:slug" element={<ToolDetailPage />} />
+              <Route path={ROUTES.TOOL_DETAIL} element={<ToolDetailPage />} />
             </Route>
 
             {/* ── Blog ── */}
             <Route element={<BlogLayout />}>
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogArticlePage />} />
+              <Route path={ROUTES.BLOG} element={<BlogPage />} />
+              <Route path={ROUTES.BLOG_ARTICLE} element={<BlogArticlePage />} />
             </Route>
 
             {/* ── Legal ── */}
             <Route element={<LegalLayout />}>
-              <Route path="/privacy" element={<PrivacyPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/cookies" element={<CookiesPage />} />
+              <Route path={ROUTES.PRIVACY} element={<PrivacyPage />} />
+              <Route path={ROUTES.TERMS} element={<TermsPage />} />
+              <Route path={ROUTES.COOKIES} element={<CookiesPage />} />
             </Route>
 
             {/* ── Error pages ── */}
             <Route element={<MinimalLayout />}>
-              <Route path="/404" element={<NotFoundPage />} />
-              <Route path="/500" element={<ServerErrorPage />} />
+              <Route path={ROUTES.NOT_FOUND} element={<NotFoundPage />} />
+              <Route path={ROUTES.SERVER_ERROR} element={<ServerErrorPage />} />
             </Route>
 
             {/* ── Catch-all ── */}
-            <Route path="*" element={<Navigate to="/404" replace />} />
+            <Route path="*" element={<Navigate to={ROUTES.NOT_FOUND} replace />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>

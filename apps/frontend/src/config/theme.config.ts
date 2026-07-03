@@ -12,7 +12,7 @@ export const themeConfig = {
   /** All supported theme values */
   supported: ['light', 'dark', 'system'] as const satisfies ThemeValue[],
   /** localStorage key for persisting preference */
-  storageKey: 'toolnest-theme',
+  storageKey: 'mytoolshub-theme',
   /** HTML attribute set on <html> to activate theme CSS */
   attribute: 'data-theme' as const,
 } as const
